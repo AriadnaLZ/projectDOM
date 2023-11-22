@@ -84,13 +84,35 @@ const products = [
 
 const sellers = []
 
+let nameWrite = ''
+
 let seller = ''
 
 let priceMax = ''
 
+
 const boxFilters = document.querySelector('.box-filters')
 const formFilters = document.createElement('form')
 boxFilters.appendChild(formFilters)
+
+const filterSearch = () => {
+  const filtered = []
+  for (const product of products) {
+    if (product.name.toLowerCase().includes (nameWrite) ){
+      filtered.push(product)
+    }
+  }
+  printProducts(filtered)
+}
+
+const selectSearch = (products) => {
+  const selectFilters = document.querySelector('.searchInput')
+  selectFilters.addEventListener('input', (event) => {
+    nameWrite = (event.target.value).toLowerCase()
+    filterSearch(products)
+  })
+}
+
 
 const filterSeller = () => {
   const filtered = []
@@ -112,7 +134,16 @@ const filterPrice = () => {
   printProducts(filtered)
 }
 
-
+const selectPriceMax = (products) => {
+  const selectFilters = document.createElement('input')
+  selectFilters.className = 'priceFilter'
+  selectFilters.placeholder = 'Precio máximo'
+  formFilters.appendChild(selectFilters)
+  selectFilters.addEventListener('input', (event) => {
+    priceMax = parseInt(event.target.value)
+    filterPrice(products)
+  })
+}
 
 const introduceSeller = (products) => {
 
@@ -147,17 +178,6 @@ const selectSeller =  (sellers) => {
   })
 }
 
-const selectPriceMax = (products) => {
-  const selectFilters = document.createElement('input')
-  selectFilters.className = 'priceFilter'
-  selectFilters.placeholder = 'Precio máximo'
-  formFilters.appendChild(selectFilters)
-  selectFilters.addEventListener('input', (event) => {
-    priceMax = parseInt(event.target.value)
-    filterPrice(products)
-  })
-}
-
 const printProducts = (products) => {
   const sectionProducts = document.querySelector('.products')
   sectionProducts.innerHTML = ""
@@ -170,6 +190,7 @@ const printProducts = (products) => {
     const price = document.createElement('p')
     const button = document.createElement('button')
     button.textContent = 'Añadir al carrito'
+
     articleProduct.classList.add('box-product')
 
     divImg.className = 'container-img'
@@ -194,8 +215,7 @@ const deleteFilters = () => {
   deleteButton.type = 'reset'
   formFilters.appendChild(deleteButton)
   deleteButton.addEventListener('click', (event) => {
-        // formFilters.reset();
-        document.querySelector('.categoryFilter  > option').value = 'Todos los productos'
+        document.querySelector('.categoryFilter ').value = 'Todos los productos'
         document.getElementsByClassName('priceFilter').value = ' '
         printProducts(products)
   }) 
@@ -203,9 +223,12 @@ const deleteFilters = () => {
 }
 
 
+
+
+
 printProducts(products)
 introduceSeller(products)
 selectSeller(sellers)
 selectPriceMax()
 deleteFilters(products)
-
+selectSearch()
