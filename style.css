@@ -26,14 +26,13 @@ body {
 }
 
 header {
+  width: 100%;
   background-color: var(--rtc-green2);
   height: 12vh;
   display: flex;
   flex-direction:  row;
-  justify-content: space-evenly;
   justify-items: center;
   align-items: center;
-
 }
 
 header h1 {
@@ -101,15 +100,45 @@ gap: var(--rem2);
 .box-filters {
   width: 15%;
 }
-.box-filters > select {
+
+.box-filters form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rem1);
+}
+
+.box-filters  form select {
   width: 100%;
   height: 50px;
   font-size: 15px;
 }
 
-.box-filters  select option:hover {
- background-color: var(--rtc-green-products);
+.box-filters form input {
+  width: 100%;
+  height: 40px;
+  font-size: 15px;
 }
+
+.box-filters form button {
+  width: 100%;
+  height: 30px;
+  font-size: 15px;
+  background-color: var(--rtc-white);
+  border: none;
+  cursor: pointer;
+  font-weight: bolder;
+  transition-duration: 0.5s;
+}
+
+.box-filters form button:hover {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.549);
+}
+
+
+.box-filters form button:active {
+  transform:scale(-0.1);
+}
+
 
 .products {
   width: 85%;

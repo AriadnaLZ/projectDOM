@@ -129,6 +129,7 @@ const introduceSeller = (products) => {
 
 const selectSeller =  (sellers) => {
   const selectFilters = document.createElement('select')
+  selectFilters.className = 'categoryFilter'
  
   for (const seller of sellers) {
     const option = document.createElement('option')
@@ -148,6 +149,7 @@ const selectSeller =  (sellers) => {
 
 const selectPriceMax = (products) => {
   const selectFilters = document.createElement('input')
+  selectFilters.className = 'priceFilter'
   selectFilters.placeholder = 'Precio máximo'
   formFilters.appendChild(selectFilters)
   selectFilters.addEventListener('input', (event) => {
@@ -191,10 +193,13 @@ const deleteFilters = () => {
   deleteButton.textContent = 'Limpiar filtros'
   deleteButton.type = 'reset'
   formFilters.appendChild(deleteButton)
-  deleteButton.onclick = () => {
-    formFilters.reset();
-  }
-  printProducts(products)
+  deleteButton.addEventListener('click', (event) => {
+        // formFilters.reset();
+        document.querySelector('.categoryFilter  > option').value = 'Todos los productos'
+        document.getElementsByClassName('priceFilter').value = ' '
+        printProducts(products)
+  }) 
+  
 }
 
 
@@ -202,5 +207,5 @@ printProducts(products)
 introduceSeller(products)
 selectSeller(sellers)
 selectPriceMax()
-deleteFilters()
+deleteFilters(products)
 
